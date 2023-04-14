@@ -4,7 +4,6 @@
 
     export let width;
     export let yScale;
-    export let height;
     export let yTicks;
     export let axisYText;
 

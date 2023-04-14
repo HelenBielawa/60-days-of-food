@@ -60,7 +60,7 @@
         xTicks = {[0, 50, 100, 150, 200, 250]}
         horizontalLines = {false}
         axisXTitle="ID of the meal"/>
-      <AxisY height={innerHeight}
+      <AxisY 
         width={innerWidth}
         {yScale}
         yTicks={["00", "02", "04", "06", "08", "10", "12", "14", "16"]}
