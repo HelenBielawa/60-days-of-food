@@ -29,8 +29,6 @@
                       {"name": "Processing", "values": ["selfmade", "restaurant", "delivered"] },
                       {"name": "Diet", "values": ["vegetarian", "vegan"]}];
 
-    let image_urls = data.map(d => '../src/data/img/' + d.id + '_2.jpg');
-
     const selectFilter = (category, value) => {
       filters[category] = filters[category] || [];
       const index = filters[category].indexOf(value);
@@ -136,17 +134,6 @@
       display: inline-block;
       border-radius:50%;
     }
-    .filterShadow{
-      width: 3rem;
-      height: 3rem;
-      display: inline-block;
-      border-radius:50%;
-      position: absolute;
-      background-color: #D81E5B;
-      opacity: 0.3;
-      left: 0;
-    }
-
     @media (min-width: 420px){
       .cell {
         width: 30px;
