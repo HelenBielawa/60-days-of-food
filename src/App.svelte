@@ -21,7 +21,7 @@
   There were only two times that I missed taking a picture (these were work-related events where I would have been too embarrassed to take a photo of myself with my food). 
   Here you can see all the food that I consumed during 60 days - 285 meals in total which corresponds to almost five meals per day.
 
-  For each meal, I took notes about its type. Most importantly, I rated each meal from zero to 10. Here you can explore and filter all the meals.
+  For each meal, I took notes, for example I wrote down with whom I ate, if I cooked it myself and if it was vegan. Here you can explore and filter all the meals.
 </p>
 
 <div class = "chartcontainer" style="width:90%; margin:auto">
@@ -33,7 +33,7 @@
 This project was not about weight, health or diet. It was about enjoyment. 
 I love food a lot and care much about eating healthy and sustainably. 
 With this project I wanted to focus on each meal. 
-I rated all the food from zero to ten where zero would be absolutely disgusting and impossible to eat and ten is simply perfect.
+I rated all the food from zero to ten where zero would be absolutely disgusting and ten is simply perfect.
 </p>
 <div class = "chartcontainer" style="width:70%; margin:auto">
   <LayerCake
