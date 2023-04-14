@@ -1,17 +1,12 @@
 <script>
     import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
     import { scaleLinear, scaleOrdinal, scaleBand } from "d3-scale";
-    import { mean, rollups } from "d3-array";
     import AxisX from "./AxisX.svelte";
     import AxisY from "./AxisY.svelte";
     import Tooltip from "./Tooltip.svelte";
-    import { getContext } from 'svelte';
-  import { loop_guard } from "svelte/internal";
-
+    import { onMount } from "svelte";
     export let data;
 
-    //const { data, xGet, height, zGet } = getContext('LayerCake');
-  
     const categories = ["breakfast", "lunch", "dinner", "snack"];
   
     $: width = 400;
@@ -20,14 +15,6 @@
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
 
-    $: mouseX = 0;
-    $: mouseY = 0;
-
-    function handleMouseMove(event) {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-    }
- 
     $: xScale = scaleLinear()
       .domain([0, 10])
       .range([0, innerWidth])
@@ -66,16 +53,30 @@
       }
   
       let hoveredData;
+      let containerElement;
+      let tooltipX;
+      let tooltipY;
+      onMount(() => {
+        containerElement = document.getElementById('chart-container');
+      });
   
   </script>
   
-  <h2>How are the meals distributed in the range between 0 and 10?</h2>
+  <h2>I Rated Most Meals With 8/10</h2>
   
-    <div class="chart-container"
+    <div class="chart-container" id="chart-container"
       bind:clientWidth={width}
       on:mouseleave={() => {hoveredData = null}}
       on:blur={() => {hoveredData = null}}
-      on:mousemove={handleMouseMove}
+      on:mousemove={event => {
+        // Get the mouse position relative to the container element
+        const mouseX = event.clientX - containerElement.getBoundingClientRect().left;
+        const mouseY = event.clientY - containerElement.getBoundingClientRect().top;
+      
+        // Set the position of the tooltip to the mouse position
+        tooltipX = mouseX;
+        tooltipY = mouseY;
+      }}
       >
   
     <svg width={width} {height}>
@@ -118,7 +119,7 @@
     </svg>
   
     {#if hoveredData}
-      <Tooltip data={hoveredData} x = {mouseX} y = {mouseY}/>
+      <Tooltip data={hoveredData} x = {tooltipX} y = {tooltipY}/>
     {/if}
   
   </div>  

@@ -1,17 +1,13 @@
 <script>
-  import { fcumsum, image, packSiblings } from "d3";
     import Tooltip from "./Tooltip.svelte";
     import 'lazysizes';
-
+    import { onMount } from "svelte";
     export let data;
     $: width = 1000;
     $: height = 400;
 
     const margin = {top: 20, right:20, left:20, bottom:20};
   
-    $: innerWidth = width - margin.left - margin.right;
-    $: innerHeight = height - margin.top - margin.bottom;
-
     $: mouseX = 0;
     $: mouseY = 0;
 
@@ -54,6 +50,12 @@
     $: checkedData = data.map(meal => {meal.checked = checkFilter(meal, filters); return meal});
 
     let hoveredData;
+    let containerElement;
+    let tooltipX;
+    let tooltipY;
+    onMount(() => {
+    containerElement = document.getElementById('cellwrapper');
+    });
    
   </script>
 
@@ -73,13 +75,21 @@
     {/each}
 
     <div
-    class="cellwrapper">
+    class="cellwrapper" id="cellwrapper">
     {#each checkedData as meal}
       <div class="cell"
       on:mouseover={() => {hoveredData = meal}}
       on:focus={() => {hoveredData = meal}}
-      on:mousemove={handleMouseMove}
       on:mouseleave={() => {hoveredData = null}}
+      on:mousemove={event => {
+        // Get the mouse position relative to the container element
+        const mouseX = event.clientX - containerElement.getBoundingClientRect().left;
+        const mouseY = event.clientY - containerElement.getBoundingClientRect().top;
+      
+        // Set the position of the tooltip to the mouse position
+        tooltipX = mouseX;
+        tooltipY = mouseY;
+      }}
       >
 
       <img 
@@ -94,7 +104,7 @@
 
   
     {#if hoveredData}
-      <Tooltip data={hoveredData} x={mouseX} y={mouseY}/>
+      <Tooltip data={hoveredData} x={tooltipX} y={tooltipY}/>
     {/if}
   
   </div>  

@@ -5,7 +5,7 @@
     import AxisX from "./AxisX.svelte";
     import AxisY from "./AxisY.svelte";
     import Tooltip from "./Tooltip.svelte";
-
+    import { onMount } from "svelte";
     export let data;
 
     console.log(typeof(data[5].HungryTime));
@@ -39,17 +39,31 @@
         .curve(curveStep)(data);
   
     let hoveredData;
-
+    $: containerElement = null;
     const radius = 5;
+    onMount(() => {
+    containerElement = document.getElementById('chart-container');
+    });
+
+    let tooltipX;
+    let tooltipY;
  
   </script>
   
-  <!-- binding chart size to screensize of client-->
-  <div class="chart-container"
+  <h1>My Food-Timing is Very Rhythmic</h1>
+  <div class="chart-container" id="chart-container"
       bind:clientWidth={width}
       on:mouseleave={() => {hoveredData = null}}
       on:blur={() => {hoveredData = null}}
-      on:mousemove={handleMouseMove}
+      on:mousemove={event => {
+        // Get the mouse position relative to the container element
+        const mouseX = event.clientX - containerElement.getBoundingClientRect().left;
+        const mouseY = event.clientY - containerElement.getBoundingClientRect().top;
+      
+        // Set the position of the tooltip to the mouse position
+        tooltipX = mouseX;
+        tooltipY = mouseY;
+      }}
       >
   
     <svg width={width} height={height}>
@@ -97,7 +111,7 @@
     </svg>
   
      {#if hoveredData}
-      <Tooltip data={hoveredData} x={mouseX} y= {mouseY}/>
+      <Tooltip data={hoveredData} x={tooltipX} y= {tooltipY}/>
      {/if}
   
   </div>
