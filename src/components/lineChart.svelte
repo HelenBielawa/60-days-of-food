@@ -1,35 +1,25 @@
 <script>
     import { scaleTime, scaleLinear } from "d3-scale";
     import { line, curveStep } from 'd3';
-    import { max, extent } from "d3-array";
+    import { extent } from "d3-array";
     import AxisX from "./AxisX.svelte";
     import AxisY from "./AxisY.svelte";
     import Tooltip from "./Tooltip.svelte";
     import { onMount } from "svelte";
     export let data;
 
-    console.log(typeof(data[5].HungryTime));
-  
+ 
     $: width = 400;
     $: height  = 400;
-    const margin = {top: 20, right:40, left:20, bottom:20};
+    const margin = {top: 50, right:40, left:20, bottom:20};
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
 
-    $: mouseX = 0;
-    $: mouseY = 0;
-
-    function handleMouseMove(event) {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-    }
-  
     $: xScale = scaleLinear()
     .domain(extent(data, d => +d.id))
     .range([0, innerWidth])
   
     $: yScale = scaleTime()
-    //.domain([new Date("2023-02-04T00:00:00"), max(data, d => Date.parse("2023-02-04T" + d.HungryTime))])
     .domain([new Date("2023-02-04T00:00:00"), new Date("2023-02-04T16:00:00")])
     .range([innerHeight, 0])
 
@@ -39,19 +29,21 @@
         .curve(curveStep)(data);
   
     let hoveredData;
-    $: containerElement = null;
+ 
     const radius = 5;
-    onMount(() => {
-    containerElement = document.getElementById('chart-container');
-    });
 
+    let containerElement;
     let tooltipX;
     let tooltipY;
- 
+    onMount(() => {
+      containerElement = document.getElementById('linechart-container');
+    });
+
   </script>
   
-  <h1>My Food-Timing is Very Rhythmic</h1>
-  <div class="chart-container" id="chart-container"
+  <h2>My Food-Timing is Very Rhythmic</h2>
+
+  <div class="chart-container" id="linechart-container"
       bind:clientWidth={width}
       on:mouseleave={() => {hoveredData = null}}
       on:blur={() => {hoveredData = null}}
@@ -65,8 +57,28 @@
         tooltipY = mouseY;
       }}
       >
-  
     <svg width={width} height={height}>
+
+        <!--LEGEND-->
+        <g transform={`translate(${margin.left}, ${margin.top-30})`}>
+          <g>
+            <circle cx="0" cy="0" r="{radius}" fill="#E97CA0" />
+            <text x="{radius*2}" y="0" dy="0.3em" text-anchor="start">Breakfast</text>
+          </g>
+          <g transform="translate(120,0)">
+            <circle cx="0" cy="0" r="{radius}" fill="#D81E5B" />
+            <text x="{radius*2}" y="0" dy="0.3em" text-anchor="start">Lunch</text>
+          </g>
+          <g transform="translate(220,0)">
+            <circle cx="0" cy="0" r="{radius*2/3}" fill="#D81E5B" />
+            <text x="{radius*2/3*2}" y="0" dy="0.3em" text-anchor="start">Snack</text>
+          </g>
+          <g transform="translate(340,0)">
+            <circle cx="0" cy="0" r="{radius}" fill="#7B1C3B" />
+            <text x="{radius*2}" y="0" dy="0.3em" text-anchor="start">Dinner</text>
+          </g>
+        </g>
+
       <g transform="translate({margin.left} {margin.top})">
   
       <AxisX height={innerHeight} width={innerWidth}
@@ -88,9 +100,8 @@
             opacity=0.3
         />
         </g>
-      <!--create a group for the circles and transform-translate it to adapt to margin-->
-      <g class="cirlces" transform="translate({margin.left} {margin.top})">
 
+      <g class="cirlces" transform="translate({margin.left} {margin.top})">
       
       {#each data.sort((a, b) => a.id - b.id) as meal}
       <circle cx={xScale(meal.id)}

@@ -28,5 +28,6 @@
         background: rgba(216, 30, 91, 0.8);
         pointer-events:none;
         transition: top 100ms ease, left 100ms ease;
+        z-index: 1;
     }
 </style>

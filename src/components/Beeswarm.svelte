@@ -11,7 +11,7 @@
   
     $: width = 400;
     $: height  = 400;
-    const margin = {top: 20, right:40, left:0, bottom:20};
+    const margin = {top: 50, right:40, left:0, bottom:20};
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
 
@@ -80,6 +80,26 @@
       >
   
     <svg width={width} {height}>
+
+      <g transform={`translate(${margin.left+10}, ${margin.top-30})`}>
+        <g>
+          <circle cx="0" cy="0" r="{radius}" fill="#E97CA0" />
+          <text x="{radius*2}" y="0" dy="0.3em" text-anchor="start">Breakfast</text>
+        </g>
+        <g transform="translate(120,0)">
+          <circle cx="0" cy="0" r="{radius}" fill="#D81E5B" />
+          <text x="{radius*2}" y="0" dy="0.3em" text-anchor="start">Lunch</text>
+        </g>
+        <g transform="translate(220,0)">
+          <circle cx="0" cy="0" r="{radius*2/3}" fill="#D81E5B" />
+          <text x="{radius*2/3*2}" y="0" dy="0.3em" text-anchor="start">Snack</text>
+        </g>
+        <g transform="translate(340,0)">
+          <circle cx="0" cy="0" r="{radius}" fill="#7B1C3B" />
+          <text x="{radius*2}" y="0" dy="0.3em" text-anchor="start">Dinner</text>
+        </g>
+      </g>
+
     <g class="inner-chart" transform="translate({margin.left}, {margin.top})">
   
       <AxisX height={innerHeight}
