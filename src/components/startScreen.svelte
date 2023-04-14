@@ -5,9 +5,9 @@
 
     let images = data.flatMap(d => {
     return [
-        `../src/data/img/img_highQual/${d.id}_1.jpg`,
-        `../src/data/img/img_highQual/${d.id}_2.jpg`,
-        `../src/data/img/img_highQual/${d.id}_3.jpg`
+        `img/img_highQual/${d.id}_1.jpg`,
+        `img/img_highQual/${d.id}_2.jpg`,
+        `img/img_highQual/${d.id}_3.jpg`
     ];
     });
   

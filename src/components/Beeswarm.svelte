@@ -88,7 +88,7 @@
             horizontalLines = {false}
             axisXTitle={"My Food Rating"}/>
 
-      <AxisY width={innerWidth} yTicks={["breakfast"]} axisYText={""} yScale={yScale}/>
+      <AxisY width={innerWidth} yTicks={[]} axisYText={""} yScale={yScale}/>
    
         {#each nodes as node}
           <circle

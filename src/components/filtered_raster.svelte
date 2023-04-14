@@ -83,7 +83,7 @@
       >
 
       <img 
-        src={'../src/data/img/' + meal.id + '_1.jpg'? '../src/data/img/' + meal.id + '_1.jpg' : '../src/data/img/' + meal.id + '_2.jpg'}
+        src={'img/' + meal.id + '_1.jpg'? 'img/' + meal.id + '_1.jpg' : 'img/' + meal.id + '_2.jpg'}
         alt="meal"
         style="opacity: {meal.checked? "1" : "0.4"};
         filter:saturate({ meal.checked? '1' : '50%'})"

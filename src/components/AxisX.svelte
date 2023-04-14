@@ -21,8 +21,9 @@
         {#if horizontalLines == true}
             <line x1={xScale(tick)} x2={xScale(tick)} y1="0" y2={height} stroke=grey/>
         {/if}
+        <line x1={xScale(tick)} x2={xScale(tick)} y1={height-7} y2={height} stroke=grey />
     {/each}
-    <text class="axis-title" y={height-3} x={width} text-anchor="end" dominant-baseline="hanging" dy=6>
+    <text class="axis-title" y={height-20} x={width} text-anchor="end" dominant-baseline="hanging" dy=6>
         {axisXTitle}
     </text>
 </g>
